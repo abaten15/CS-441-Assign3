@@ -13,5 +13,7 @@
 
 @property (nonatomic) NSMutableArray<GKEntity *> *entities;
 @property (nonatomic) NSMutableDictionary<NSString*, GKGraph *> *graphs;
+@property (nonatomic) SKSpriteNode *player;
+@property (nonatomic) SKSpriteNode *window;
 
 @end
