@@ -16,4 +16,7 @@
 @property (nonatomic) SKSpriteNode *player;
 @property (nonatomic) SKSpriteNode *window;
 
+- (void) rotatePlayerWithPoint:(CGPoint)point;
+- (CGFloat) pointPairToBearingDegrees:(CGPoint)startingPoint secondPoint:(CGPoint) endingPoint;
+
 @end
