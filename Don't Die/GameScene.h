@@ -15,8 +15,18 @@
 @property (nonatomic) NSMutableDictionary<NSString*, GKGraph *> *graphs;
 @property (nonatomic) SKSpriteNode *player;
 @property (nonatomic) SKSpriteNode *window;
+@property (nonatomic) NSMutableArray *bullets;
+@property (nonatomic) NSTimer *cooldownTimer;
+@property (nonatomic) BOOL canShootNewBullet;
+@property (nonatomic) BOOL touchDown;
+@property (nonatomic) CGPoint lastPoint;
 
-- (void) rotatePlayerWithPoint:(CGPoint)point;
-- (CGFloat) pointPairToBearingDegrees:(CGPoint)startingPoint secondPoint:(CGPoint) endingPoint;
+- (void) rotatePlayerWithPoint:(CGPoint) point;
+- (void) shootNewBulletAt:(CGPoint) location;
+- (BOOL) canShootNewBullet;
+- (void) endBulletCooldown;
+
+- (CGFloat) degreesToRadians:(CGFloat)degrees;
+- (CGFloat) pointPairToBearingDegrees:(CGPoint) startingPoint secondPoint:(CGPoint) endingPoint;
 
 @end
