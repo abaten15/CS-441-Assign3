@@ -8,14 +8,26 @@
 
 #import "GameScene.h"
 #import <Math.h>
+#import "Zombie.h"
 
 @implementation GameScene {
     NSTimeInterval _lastUpdateTime;
 }
 
 - (void)sceneDidLoad {
+	_cooldownDuration = 0.5;
 	_canShootNewBullet = YES;
 	_touchDown = NO;
+	// Setting up background
+	SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Background Dont Die"];
+	
+	CGRect screenRect = [[UIScreen mainScreen] bounds];
+	CGFloat screenWidth = screenRect.size.width;
+	CGFloat screenHeight = screenRect.size.height;
+	[background setSize:(CGSizeMake(1000, 1000))];
+	[background setPosition:CGPointMake(0, 0)];
+	[self addChild:background];
+	
     // Setup your scene here
 	_player = [SKSpriteNode spriteNodeWithImageNamed:@"BillyBaller_Forward"];
 	[_player setPosition:CGPointMake(0, 0)];
@@ -30,14 +42,22 @@
     // Initialize update time
     _lastUpdateTime = 0;
 	
+    [self spawnNewZombie];
+	
 }
 
 - (void) shootNewBulletAt:(CGPoint)location {
 
 	if ([self canShootNewBullet]) {
+	
+		CGPoint startPoint = CGPointMake(0,0);
 
 		CGFloat angle = [self pointPairToBearingDegrees:CGPointMake(0, 0) secondPoint:location];
 		angle = [self degreesToRadians:angle];
+		
+		CGFloat newAngle = angle - M_PI_4;
+		startPoint.x = 25 * cosf(newAngle);
+		startPoint.y = 25 * sinf(newAngle);
 	
 		CGPoint vector = CGPointMake(1000, 0);
 		vector.x = 1000 * cosf(angle);
@@ -46,7 +66,7 @@
 	
 		SKSpriteNode *bullet = [SKSpriteNode spriteNodeWithImageNamed:@"Bullet"];
 		[bullet setSize:CGSizeMake(10, 10)];
-		[bullet setPosition:CGPointMake(0, 0)];
+		[bullet setPosition:CGPointMake(startPoint.x, startPoint.y)];
 		[self addChild:bullet];
 	
 		[bullet runAction:motion];
@@ -58,7 +78,7 @@
 - (BOOL) canShootNewBullet {
 	if (_canShootNewBullet) {
 		_canShootNewBullet = NO;
-		_cooldownTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endBulletCooldown) userInfo:nil repeats:NO];
+		_cooldownTimer = [NSTimer scheduledTimerWithTimeInterval:_cooldownDuration target:self selector:@selector(endBulletCooldown) userInfo:nil repeats:NO];
 		return YES;
 	}
 	return NO;
@@ -66,6 +86,12 @@
 
 - (void) endBulletCooldown {
 	_canShootNewBullet = YES;
+}
+
+- (void) spawnNewZombie
+{
+	Zombie *zombie = [[Zombie alloc] initAtPoint:CGPointMake(800, 200)];
+	[self addChild:zombie.zombie];
 }
 
 - (CGFloat) degreesToRadians:(CGFloat)degrees {

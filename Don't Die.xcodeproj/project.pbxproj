@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E52DB369221E530400CC4885 /* Zombie.m in Sources */ = {isa = PBXBuildFile; fileRef = E52DB368221E530400CC4885 /* Zombie.m */; };
 		E5B76D5F221630BF00917BF4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B76D5E221630BF00917BF4 /* AppDelegate.m */; };
 		E5B76D61221630BF00917BF4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5B76D60221630BF00917BF4 /* GameScene.sks */; };
 		E5B76D63221630BF00917BF4 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5B76D62221630BF00917BF4 /* Actions.sks */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E52DB367221E52D200CC4885 /* Zombie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Zombie.h; sourceTree = "<group>"; };
+		E52DB368221E530400CC4885 /* Zombie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Zombie.m; sourceTree = "<group>"; };
 		E5B76D5A221630BF00917BF4 /* Don't Die.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Don't Die.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5B76D5D221630BF00917BF4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E5B76D5E221630BF00917BF4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -112,6 +115,8 @@
 				E5B76D5E221630BF00917BF4 /* AppDelegate.m */,
 				E5B76D60221630BF00917BF4 /* GameScene.sks */,
 				E5B76D62221630BF00917BF4 /* Actions.sks */,
+				E52DB367221E52D200CC4885 /* Zombie.h */,
+				E52DB368221E530400CC4885 /* Zombie.m */,
 				E5B76D64221630BF00917BF4 /* GameScene.h */,
 				E5B76D65221630BF00917BF4 /* GameScene.m */,
 				E5B76D67221630BF00917BF4 /* GameViewController.h */,
@@ -282,6 +287,7 @@
 				E5B76D69221630BF00917BF4 /* GameViewController.m in Sources */,
 				E5B76D74221630BF00917BF4 /* main.m in Sources */,
 				E5B76D5F221630BF00917BF4 /* AppDelegate.m in Sources */,
+				E52DB369221E530400CC4885 /* Zombie.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

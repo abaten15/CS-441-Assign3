@@ -20,11 +20,14 @@
 @property (nonatomic) BOOL canShootNewBullet;
 @property (nonatomic) BOOL touchDown;
 @property (nonatomic) CGPoint lastPoint;
+@property (nonatomic) CGFloat cooldownDuration;
 
 - (void) rotatePlayerWithPoint:(CGPoint) point;
 - (void) shootNewBulletAt:(CGPoint) location;
 - (BOOL) canShootNewBullet;
 - (void) endBulletCooldown;
+
+- (void) spawnNewZombie;
 
 - (CGFloat) degreesToRadians:(CGFloat)degrees;
 - (CGFloat) pointPairToBearingDegrees:(CGPoint) startingPoint secondPoint:(CGPoint) endingPoint;
