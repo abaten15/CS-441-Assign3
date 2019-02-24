@@ -9,6 +9,7 @@
 #import "GameScene.h"
 #import <Math.h>
 #import "Zombie.h"
+#import <stdlib.h>
 
 @implementation GameScene {
     NSTimeInterval _lastUpdateTime;
@@ -41,8 +42,6 @@
     
     // Initialize update time
     _lastUpdateTime = 0;
-	
-    [self spawnNewZombie];
 	
 }
 
@@ -90,7 +89,18 @@
 
 - (void) spawnNewZombie
 {
-	Zombie *zombie = [[Zombie alloc] initAtPoint:CGPointMake(800, 200)];
+	int randomValue = arc4random_uniform(800);
+	int posX = arc4random_uniform(2);
+	int posY = arc4random_uniform(2);
+	int x = 800;
+	if (posX == 1) {
+		x *= -1;
+	}
+	int y = randomValue;
+	if (posY == 1) {
+		y *= -1;
+	}
+	Zombie *zombie = [[Zombie alloc] initAtPoint:CGPointMake(x, y)];
 	[self addChild:zombie.zombie];
 }
 
@@ -167,8 +177,14 @@
     if (_touchDown) {
     	[self shootNewBulletAt:_lastPoint];
 	}
-    
-    _lastUpdateTime = currentTime;
+	
+	NSLog(@"%f", dt);
+	
+	if (dt > .5) {
+		[self spawnNewZombie];
+		_lastUpdateTime = currentTime;
+	}
+	
 }
 
 @end
