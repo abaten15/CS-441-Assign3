@@ -61,6 +61,7 @@
 		E5B76D84221630BF00917BF4 /* Don't DieUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Don't DieUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5B76D88221630BF00917BF4 /* Don_t_DieUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Don_t_DieUITests.m; sourceTree = "<group>"; };
 		E5B76D8A221630BF00917BF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5DC29B5222487FF005A5847 /* CategoryDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryDefinitions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +120,7 @@
 				E52DB368221E530400CC4885 /* Zombie.m */,
 				E5B76D64221630BF00917BF4 /* GameScene.h */,
 				E5B76D65221630BF00917BF4 /* GameScene.m */,
+				E5DC29B5222487FF005A5847 /* CategoryDefinitions.h */,
 				E5B76D67221630BF00917BF4 /* GameViewController.h */,
 				E5B76D68221630BF00917BF4 /* GameViewController.m */,
 				E5B76D6A221630BF00917BF4 /* Main.storyboard */,

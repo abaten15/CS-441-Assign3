@@ -7,9 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import <UIKit/UIKit.h>
 #import <GameplayKit/GameplayKit.h>
 
-@interface GameScene : SKScene
+@interface GameScene : SKScene SKPhysicsContactDelegate
 
 @property (nonatomic) NSMutableArray<GKEntity *> *entities;
 @property (nonatomic) NSMutableDictionary<NSString*, GKGraph *> *graphs;
@@ -21,6 +22,8 @@
 @property (nonatomic) BOOL touchDown;
 @property (nonatomic) CGPoint lastPoint;
 @property (nonatomic) CGFloat cooldownDuration;
+@property (nonatomic) CGFloat currentZombieSpawnDebuff;
+@property (nonatomic) CGFloat zombieSpawnCooldown;
 
 - (void) rotatePlayerWithPoint:(CGPoint) point;
 - (void) shootNewBulletAt:(CGPoint) location;

@@ -12,7 +12,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import <GameplayKit/GameplayKit.h>
 
-@interface Zombie : NSObject
+@interface Zombie : NSObject <SKPhysicsContactDelegate>
 
 @property (nonatomic) SKSpriteNode *zombie;
 

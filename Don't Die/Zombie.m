@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Zombie.h"
+#import "CategoryDefinitions.h"
 
 @implementation Zombie {
 
@@ -19,17 +20,17 @@
 	self = [super init];
 	if (self) {
 		CGFloat angleToZombie = [self pointPairToBearingDegrees:point secondPoint:CGPointMake(0, 0)];
-		CGFloat angleToOrigin;
-		if (angleToZombie > M_PI) {
-			angleToOrigin = angleToZombie - M_PI;
-		} else {
-			angleToOrigin = angleToZombie + M_PI;
-		}
+		angleToZombie = [self degreesToRadians:angleToZombie];
+		angleToZombie -= M_PI_2;
 		SKAction *motion = [SKAction moveTo:CGPointMake(0, 0) duration:5];
 		_zombie = [SKSpriteNode spriteNodeWithImageNamed:@"BillyBaller_Forward"];
 		[_zombie setPosition:point];
 		[_zombie setSize:CGSizeMake(50, 50)];
-		[self rotateToAngle:angleToOrigin];
+		_zombie.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:25];
+		_zombie.physicsBody.dynamic = NO;
+		_zombie.physicsBody.categoryBitMask = zombieCategory;
+		_zombie.physicsBody.contactTestBitMask = playerCategory;
+		[self rotateToAngle:angleToZombie];
 		[_zombie runAction:motion];
 	}
 	return self;

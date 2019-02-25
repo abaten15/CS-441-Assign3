@@ -7,6 +7,7 @@
 //
 
 #import "GameScene.h"
+#import "CategoryDefinitions.h"
 #import <Math.h>
 #import "Zombie.h"
 #import <stdlib.h>
@@ -33,6 +34,9 @@
 	_player = [SKSpriteNode spriteNodeWithImageNamed:@"BillyBaller_Forward"];
 	[_player setPosition:CGPointMake(0, 0)];
 	[_player setSize:CGSizeMake(50, 50)];
+	_player.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:25];
+	_player.physicsBody.dynamic = NO;
+	_player.physicsBody.categoryBitMask = playerCategory;
 	[self addChild:_player];
 	
 	// Screen window for uitouches
@@ -42,6 +46,9 @@
     
     // Initialize update time
     _lastUpdateTime = 0;
+	
+    _currentZombieSpawnDebuff = 0;
+    _zombieSpawnCooldown = 1.0;
 	
 }
 
@@ -168,6 +175,8 @@
     
     // Calculate time since last update
     CGFloat dt = currentTime - _lastUpdateTime;
+    _lastUpdateTime = currentTime;
+    _currentZombieSpawnDebuff += dt;
     
     // Update entities
     for (GKEntity *entity in self.entities) {
@@ -178,11 +187,9 @@
     	[self shootNewBulletAt:_lastPoint];
 	}
 	
-	NSLog(@"%f", dt);
-	
-	if (dt > .5) {
+	if (_currentZombieSpawnDebuff > _zombieSpawnCooldown) {
 		[self spawnNewZombie];
-		_lastUpdateTime = currentTime;
+		_currentZombieSpawnDebuff -= _zombieSpawnCooldown;
 	}
 	
 }
