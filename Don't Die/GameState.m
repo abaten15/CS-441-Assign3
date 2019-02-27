@@ -30,13 +30,20 @@
 	[background setPosition:CGPointMake(0, 0)];
 	[self addChild:background];
 	
+	_contactQueue = [NSMutableArray array];
+	self.physicsWorld.contactDelegate = self;
+	self.contactQueue = [NSMutableArray array];
+	
     // Setup your scene here
 	_player = [SKSpriteNode spriteNodeWithImageNamed:@"BillyBaller_Forward"];
 	[_player setPosition:CGPointMake(0, 0)];
 	[_player setSize:CGSizeMake(50, 50)];
+	_player.physicsBody.node.name = playerName;
 	_player.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:25];
-	_player.physicsBody.dynamic = NO;
+	_player.physicsBody.dynamic = YES;
+	_player.physicsBody.affectedByGravity = NO;
 	_player.physicsBody.categoryBitMask = playerCategory;
+	_player.physicsBody.collisionBitMask = 0x0;
 	[self addChild:_player];
 	
 	// Screen window for uitouches
@@ -73,6 +80,13 @@
 		SKSpriteNode *bullet = [SKSpriteNode spriteNodeWithImageNamed:@"Bullet"];
 		[bullet setSize:CGSizeMake(10, 10)];
 		[bullet setPosition:CGPointMake(startPoint.x, startPoint.y)];
+		bullet.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:5];
+		bullet.physicsBody.contactTestBitMask = zombieCategory;
+		bullet.physicsBody.collisionBitMask = 0x0;
+		bullet.physicsBody.categoryBitMask = bulletCategory;
+		bullet.physicsBody.node.name = bulletName;
+		bullet.physicsBody.affectedByGravity = NO;
+		bullet.physicsBody.dynamic = YES;
 		[self addChild:bullet];
 	
 		[bullet runAction:motion];
@@ -107,7 +121,7 @@
 	if (posY == 1) {
 		y *= -1;
 	}
-	Zombie *zombie = [[Zombie alloc] initAtPoint:CGPointMake(x, y)];
+	Zombie *zombie = [[Zombie alloc] initAtPoint:CGPointMake(x, y) withDelegate:self];
 	[self addChild:zombie.zombie];
 }
 
@@ -164,9 +178,38 @@
 
 }
 
+// Collision detection
 
--(void)update:(CFTimeInterval)currentTime {
+- (void)didBeginContact:(SKPhysicsContact *)contact {
+	[self.contactQueue addObject:contact];
+}
+
+- (void)handleContact:(SKPhysicsContact *)contact {
+	if (!contact.bodyA.node.parent || !contact.bodyB.node.parent) {
+		return;
+	}
+	if ([contact.bodyB.node.name isEqualToString:zombieName]) {
+		[contact.bodyB.node removeFromParent];
+		NSLog(@"damage to player done");
+	}
+	if ([contact.bodyB.node.name isEqualToString:bulletName]) {
+		[contact.bodyB.node removeFromParent];
+		NSLog(@"damage to zombie done");
+	}
+}
+
+- (void)processContactsForUpdate:(NSTimeInterval)currentTime {
+    for (SKPhysicsContact* contact in [self.contactQueue copy]) {
+        [self handleContact:contact];
+        [self.contactQueue removeObject:contact];
+    }
+}
+
+// End collision detection
+
+- (void)update:(CFTimeInterval)currentTime {
     // Called before each frame is rendered
+    [self processContactsForUpdate:currentTime];
     
     // Initialize _lastUpdateTime if it has not already been
     if (_lastUpdateTime == 0) {

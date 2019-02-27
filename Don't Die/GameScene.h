@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <GameplayKit/GameplayKit.h>
 
-@interface GameScene : SKScene SKPhysicsContactDelegate
+@interface GameScene : SKScene <SKPhysicsContactDelegate>
 
 @property (nonatomic) NSMutableArray<GKEntity *> *entities;
 @property (nonatomic) NSMutableDictionary<NSString*, GKGraph *> *graphs;
@@ -25,6 +25,8 @@
 @property (nonatomic) CGFloat currentZombieSpawnDebuff;
 @property (nonatomic) CGFloat zombieSpawnCooldown;
 
+@property (strong) NSMutableArray *contactQueue;
+
 - (void) rotatePlayerWithPoint:(CGPoint) point;
 - (void) shootNewBulletAt:(CGPoint) location;
 - (BOOL) canShootNewBullet;
@@ -34,5 +36,8 @@
 
 - (CGFloat) degreesToRadians:(CGFloat)degrees;
 - (CGFloat) pointPairToBearingDegrees:(CGPoint) startingPoint secondPoint:(CGPoint) endingPoint;
+
+- (void) didBeginContact:(SKPhysicsContact *)contact;
+- (void) handleContact:(SKPhysicsContact *)contact;
 
 @end

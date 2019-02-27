@@ -12,11 +12,13 @@
 #import <SpriteKit/SpriteKit.h>
 #import <GameplayKit/GameplayKit.h>
 
-@interface Zombie : NSObject <SKPhysicsContactDelegate>
+@interface Zombie : NSObject
 
 @property (nonatomic) SKSpriteNode *zombie;
+@property (strong) NSMutableArray *contactQueue;
+@property (nonatomic) id<SKPhysicsContactDelegate> contactDelegate;
 
-- (id) initAtPoint:(CGPoint) point;
+- (id) initAtPoint:(CGPoint) point withDelegate:(id<SKPhysicsContactDelegate>) delegate;
 
 - (CGFloat) pointPairToBearingDegrees:(CGPoint)startingPoint secondPoint:(CGPoint) endingPoint;
 - (CGFloat) degreesToRadians:(CGFloat) degrees;

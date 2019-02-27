@@ -15,10 +15,11 @@
 }
 
 // Constuctor
-- (id) initAtPoint:(CGPoint) point
+- (id) initAtPoint:(CGPoint) point withDelegate:(id<SKPhysicsContactDelegate>) delegate
 {
 	self = [super init];
 	if (self) {
+		self.contactDelegate = delegate;
 		CGFloat angleToZombie = [self pointPairToBearingDegrees:point secondPoint:CGPointMake(0, 0)];
 		angleToZombie = [self degreesToRadians:angleToZombie];
 		angleToZombie -= M_PI_2;
@@ -27,9 +28,12 @@
 		[_zombie setPosition:point];
 		[_zombie setSize:CGSizeMake(50, 50)];
 		_zombie.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:25];
-		_zombie.physicsBody.dynamic = NO;
+		_zombie.physicsBody.dynamic = YES;
 		_zombie.physicsBody.categoryBitMask = zombieCategory;
 		_zombie.physicsBody.contactTestBitMask = playerCategory;
+		_zombie.physicsBody.affectedByGravity = NO;
+		_zombie.physicsBody.collisionBitMask = 0x0;
+		_zombie.physicsBody.node.name = zombieName;
 		[self rotateToAngle:angleToZombie];
 		[_zombie runAction:motion];
 	}
