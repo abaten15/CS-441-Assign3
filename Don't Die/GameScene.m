@@ -17,6 +17,7 @@
 }
 
 - (void)sceneDidLoad {
+	_zombieID = 0;
 	_cooldownDuration = 0.5;
 	_canShootNewBullet = YES;
 	_touchDown = NO;
@@ -38,7 +39,7 @@
 	_player = [SKSpriteNode spriteNodeWithImageNamed:@"BillyBaller_Forward"];
 	[_player setPosition:CGPointMake(0, 0)];
 	[_player setSize:CGSizeMake(50, 50)];
-	_player.physicsBody.node.name = playerName;
+	[_player.physicsBody.node setName:playerName];
 	_player.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:25];
 	_player.physicsBody.dynamic = YES;
 	_player.physicsBody.affectedByGravity = NO;
@@ -56,6 +57,11 @@
 	
     _currentZombieSpawnDebuff = 0;
     _zombieSpawnCooldown = 1.0;
+	
+	_maxHealth = 100;
+    _currentHealth = _maxHealth;
+	
+	_zombieArray = [[NSMutableArray alloc] init];
 	
 }
 
@@ -121,7 +127,9 @@
 	if (posY == 1) {
 		y *= -1;
 	}
-	Zombie *zombie = [[Zombie alloc] initAtPoint:CGPointMake(x, y) withDelegate:self];
+	Zombie *zombie = [[Zombie alloc] initAtPoint:CGPointMake(x, y) withDelegate:self withID:_zombieID];
+	_zombieID++;
+	[_zombieArray addObject:zombie];
 	[self addChild:zombie.zombie];
 }
 
@@ -188,19 +196,69 @@
 	if (!contact.bodyA.node.parent || !contact.bodyB.node.parent) {
 		return;
 	}
-	if ([contact.bodyB.node.name isEqualToString:zombieName]) {
-		[contact.bodyB.node removeFromParent];
+	NSString *nameA = contact.bodyA.node.name;
+	NSString *nameB = contact.bodyB.node.name;
+	if ([contact.bodyB.node.name isEqualToString:bulletName] || [contact.bodyA.node.name isEqualToString:bulletName]) {
+		NSString *zNameA;
+		NSString *zNameB;
+		if (nameA != NULL) {
+			zNameA = [nameA substringToIndex:[zombieName length]];
+		} if (nameB != NULL) {
+			zNameB = [nameB substringToIndex:[zombieName length]];
+		}
+		if ([zNameB isEqualToString:zombieName] || [zNameA isEqualToString:zombieName]) {
+			NSString *idA = [nameA substringFromIndex:[zombieName length]];
+			NSString *idB = [nameB substringFromIndex:[zombieName length]];
+			if ([zNameB isEqualToString:zombieName]) {
+				Zombie *zombieToRemove = NULL;
+				for (id zombie in _zombieArray) {
+					if ([zombie isKindOfClass:[Zombie class]]) {
+						if ([zombie idDoesMatch:idB]) {
+							zombieToRemove = zombie;
+						} else if ([zombie idDoesMatch:idA]) {
+							zombieToRemove = zombie;
+						}
+					}
+				}
+				[_zombieArray removeObject:zombieToRemove];
+			} else if ([zNameA isEqualToString:zombieName]) {
+				Zombie *zombieToRemove = NULL;
+				for (id zombie in _zombieArray) {
+					if ([zombie isKindOfClass:[Zombie class]]) {
+						if ([zombie idDoesMatch:idB]) {
+							zombieToRemove = zombie;
+						} else if ([zombie idDoesMatch:idA]) {
+							zombieToRemove = zombie;
+						}
+					}
+				}
+				[_zombieArray removeObject:zombieToRemove];
+			}
+			[contact.bodyB.node removeFromParent];
+			[contact.bodyA.node removeFromParent];
+			[self takeDamage:10];
+		}
+	} else {
+		NSString *zNameA;
+		NSString *zNameB;
+		if (nameA != NULL) {
+			zNameA = [nameA substringToIndex:[zombieName length]];
+		} if (nameB != NULL) {
+			zNameB = [nameB substringToIndex:[zombieName length]];
+		}
+		if ([zNameA isEqualToString:zombieName]) {
+			[contact.bodyA.node removeFromParent];
+		} else {
+			[contact.bodyB.node removeFromParent];
+		}
+		[self takeDamage:10];
 		NSLog(@"damage to player done");
-	}
-	if ([contact.bodyB.node.name isEqualToString:bulletName]) {
-		[contact.bodyB.node removeFromParent];
-		NSLog(@"damage to zombie done");
 	}
 }
 
 - (void)processContactsForUpdate:(NSTimeInterval)currentTime {
     for (SKPhysicsContact* contact in [self.contactQueue copy]) {
-        [self handleContact:contact];
+		[self handleContact:contact];
         [self.contactQueue removeObject:contact];
     }
 }
@@ -235,6 +293,14 @@
 		_currentZombieSpawnDebuff -= _zombieSpawnCooldown;
 	}
 	
+}
+
+- (void) takeDamage:(int)damage {
+	_currentHealth -= damage;
+	if (_currentHealth <= 0) {
+		_currentHealth = 0;
+		NSLog(@"Player is dead");
+	}
 }
 
 @end

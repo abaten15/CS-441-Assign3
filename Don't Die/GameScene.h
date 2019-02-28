@@ -21,9 +21,13 @@
 @property (nonatomic) BOOL canShootNewBullet;
 @property (nonatomic) BOOL touchDown;
 @property (nonatomic) CGPoint lastPoint;
+
+@property (nonatomic) NSInteger zombieID;
 @property (nonatomic) CGFloat cooldownDuration;
 @property (nonatomic) CGFloat currentZombieSpawnDebuff;
 @property (nonatomic) CGFloat zombieSpawnCooldown;
+
+@property (nonatomic) NSMutableArray *zombieArray;
 
 @property (strong) NSMutableArray *contactQueue;
 
@@ -31,6 +35,11 @@
 - (void) shootNewBulletAt:(CGPoint) location;
 - (BOOL) canShootNewBullet;
 - (void) endBulletCooldown;
+
+@property (nonatomic) int maxHealth;
+@property (nonatomic) int currentHealth;
+
+- (void) takeDamage:(int) damage;
 
 - (void) spawnNewZombie;
 

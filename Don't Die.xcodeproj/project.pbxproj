@@ -11,7 +11,7 @@
 		E5B76D5F221630BF00917BF4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B76D5E221630BF00917BF4 /* AppDelegate.m */; };
 		E5B76D61221630BF00917BF4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5B76D60221630BF00917BF4 /* GameScene.sks */; };
 		E5B76D63221630BF00917BF4 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5B76D62221630BF00917BF4 /* Actions.sks */; };
-		E5B76D66221630BF00917BF4 /* GameState.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B76D65221630BF00917BF4 /* GameState.m */; };
+		E5B76D66221630BF00917BF4 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B76D65221630BF00917BF4 /* GameScene.m */; };
 		E5B76D69221630BF00917BF4 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B76D68221630BF00917BF4 /* GameViewController.m */; };
 		E5B76D6C221630BF00917BF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5B76D6A221630BF00917BF4 /* Main.storyboard */; };
 		E5B76D6E221630BF00917BF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5B76D6D221630BF00917BF4 /* Assets.xcassets */; };
@@ -47,7 +47,7 @@
 		E5B76D60221630BF00917BF4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		E5B76D62221630BF00917BF4 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		E5B76D64221630BF00917BF4 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		E5B76D65221630BF00917BF4 /* GameState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameState.m; sourceTree = "<group>"; };
+		E5B76D65221630BF00917BF4 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		E5B76D67221630BF00917BF4 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		E5B76D68221630BF00917BF4 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		E5B76D6B221630BF00917BF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 				E52DB367221E52D200CC4885 /* Zombie.h */,
 				E52DB368221E530400CC4885 /* Zombie.m */,
 				E5B76D64221630BF00917BF4 /* GameScene.h */,
-				E5B76D65221630BF00917BF4 /* GameState.m */,
+				E5B76D65221630BF00917BF4 /* GameScene.m */,
 				E5DC29B5222487FF005A5847 /* CategoryDefinitions.h */,
 				E5B76D67221630BF00917BF4 /* GameViewController.h */,
 				E5B76D68221630BF00917BF4 /* GameViewController.m */,
@@ -285,7 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5B76D66221630BF00917BF4 /* GameState.m in Sources */,
+				E5B76D66221630BF00917BF4 /* GameScene.m in Sources */,
 				E5B76D69221630BF00917BF4 /* GameViewController.m in Sources */,
 				E5B76D74221630BF00917BF4 /* main.m in Sources */,
 				E5B76D5F221630BF00917BF4 /* AppDelegate.m in Sources */,

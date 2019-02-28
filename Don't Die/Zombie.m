@@ -15,7 +15,7 @@
 }
 
 // Constuctor
-- (id) initAtPoint:(CGPoint) point withDelegate:(id<SKPhysicsContactDelegate>) delegate
+- (id) initAtPoint:(CGPoint) point withDelegate:(id<SKPhysicsContactDelegate>) delegate withID:(NSInteger)idIn
 {
 	self = [super init];
 	if (self) {
@@ -24,7 +24,7 @@
 		angleToZombie = [self degreesToRadians:angleToZombie];
 		angleToZombie -= M_PI_2;
 		SKAction *motion = [SKAction moveTo:CGPointMake(0, 0) duration:5];
-		_zombie = [SKSpriteNode spriteNodeWithImageNamed:@"BillyBaller_Forward"];
+		_zombie = [SKSpriteNode spriteNodeWithImageNamed:@"Zombie"];
 		[_zombie setPosition:point];
 		[_zombie setSize:CGSizeMake(50, 50)];
 		_zombie.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:25];
@@ -33,7 +33,11 @@
 		_zombie.physicsBody.contactTestBitMask = playerCategory;
 		_zombie.physicsBody.affectedByGravity = NO;
 		_zombie.physicsBody.collisionBitMask = 0x0;
-		_zombie.physicsBody.node.name = zombieName;
+		NSString *ID = [NSString stringWithFormat:@"%d", idIn];
+		_ID = idIn;
+		NSArray *nameArray = [[NSArray alloc] initWithObjects:zombieName, ID, nil];
+		NSString *nameString = [nameArray componentsJoinedByString:@""];
+		_zombie.physicsBody.node.name = nameString;
 		[self rotateToAngle:angleToZombie];
 		[_zombie runAction:motion];
 	}
@@ -59,6 +63,14 @@
 {
 	SKAction *rotation = [SKAction rotateToAngle: angle duration:0];
 	[_zombie runAction:rotation];
+}
+
+- (BOOL) idDoesMatch:(NSString *)idIn
+{
+
+	NSString *idString = [NSString stringWithFormat:@"%d", (int)_ID];
+	return [idString isEqualToString:idIn];
+
 }
 
 @end

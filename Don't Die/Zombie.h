@@ -17,13 +17,18 @@
 @property (nonatomic) SKSpriteNode *zombie;
 @property (strong) NSMutableArray *contactQueue;
 @property (nonatomic) id<SKPhysicsContactDelegate> contactDelegate;
+@property (nonatomic) NSInteger ID;
 
-- (id) initAtPoint:(CGPoint) point withDelegate:(id<SKPhysicsContactDelegate>) delegate;
+- (id) initAtPoint:(CGPoint) point withDelegate:(id<SKPhysicsContactDelegate>) delegate withID:(NSInteger) idIn;
 
 - (CGFloat) pointPairToBearingDegrees:(CGPoint)startingPoint secondPoint:(CGPoint) endingPoint;
 - (CGFloat) degreesToRadians:(CGFloat) degrees;
 - (void) rotateToAngle:(CGFloat) angle;
 
+- (BOOL) idDoesMatch:(NSString *) idIn;
+
 @end
+
+extern int ZOMBIE_ID;
 
 #endif /* Zombie_h */
