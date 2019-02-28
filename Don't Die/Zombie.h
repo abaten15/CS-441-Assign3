@@ -19,7 +19,7 @@
 @property (nonatomic) id<SKPhysicsContactDelegate> contactDelegate;
 @property (nonatomic) NSInteger ID;
 
-- (id) initAtPoint:(CGPoint) point withDelegate:(id<SKPhysicsContactDelegate>) delegate withID:(NSInteger) idIn;
+- (id) initAtPoint:(CGPoint) point withDelegate:(id<SKPhysicsContactDelegate>) delegate withID:(NSInteger) idIn withSpeed:(CGFloat) speed;
 
 - (CGFloat) pointPairToBearingDegrees:(CGPoint)startingPoint secondPoint:(CGPoint) endingPoint;
 - (CGFloat) degreesToRadians:(CGFloat) degrees;

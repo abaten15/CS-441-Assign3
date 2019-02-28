@@ -15,7 +15,7 @@
 }
 
 // Constuctor
-- (id) initAtPoint:(CGPoint) point withDelegate:(id<SKPhysicsContactDelegate>) delegate withID:(NSInteger)idIn
+- (id) initAtPoint:(CGPoint) point withDelegate:(id<SKPhysicsContactDelegate>) delegate withID:(NSInteger)idIn withSpeed:(CGFloat)speed
 {
 	self = [super init];
 	if (self) {
@@ -23,7 +23,7 @@
 		CGFloat angleToZombie = [self pointPairToBearingDegrees:point secondPoint:CGPointMake(0, 0)];
 		angleToZombie = [self degreesToRadians:angleToZombie];
 		angleToZombie -= M_PI_2;
-		SKAction *motion = [SKAction moveTo:CGPointMake(0, 0) duration:5];
+		SKAction *motion = [SKAction moveTo:CGPointMake(0, 0) duration:speed];
 		_zombie = [SKSpriteNode spriteNodeWithImageNamed:@"Zombie"];
 		[_zombie setPosition:point];
 		[_zombie setSize:CGSizeMake(50, 50)];
