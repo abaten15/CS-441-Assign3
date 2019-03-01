@@ -1,0 +1,166 @@
+commit 8c29bad1364f7fb049cbf9b20d687b3ad1483eb1
+Author: Nick Abate <abaten15@nicks-mbp-4.home>
+Date:   Wed Feb 27 23:37:54 2019 -0500
+
+    Upgrades added. UI and graphics improved
+
+ .../Background Dont Die.png                        | Bin 53555 -> 59307 bytes
+ .../BillyBaller_Forward.png                        | Bin 460 -> 0 bytes
+ .../Assets.xcassets/Player.imageset/Contents.json  |  21 +++
+ .../Assets.xcassets/Player.imageset/Player.png     | Bin 0 -> 408 bytes
+ .../UpgradeDefenses-1.imageset/Contents.json       |  21 +++
+ .../UpgradeDefenses-1.imageset/UpgradeDefenses.png | Bin 0 -> 4618 bytes
+ .../Contents.json                                  |   2 +-
+ .../UpgradeDefenses.imageset/UpgradeDefenses.png   | Bin 0 -> 4520 bytes
+ .../UpgradeGun-1.imageset/Contents.json            |  21 +++
+ .../UpgradeGun-1.imageset/UpgradeGun.png           | Bin 0 -> 4354 bytes
+ .../UpgradeGun.imageset/Contents.json              |  21 +++
+ .../UpgradeGun.imageset/UpgradeGun.png             | Bin 0 -> 4267 bytes
+ .../UpgradeStealth-1.imageset/Contents.json        |  21 +++
+ .../UpgradeStealth-1.imageset/UpgradeStealth.png   | Bin 0 -> 4341 bytes
+ .../UpgradeStealth.imageset/Contents.json          |  21 +++
+ .../UpgradeStealth.imageset/UpgradeStealth.png     | Bin 0 -> 4362 bytes
+ .../Assets.xcassets/defense.imageset/Contents.json |  21 +++
+ .../Assets.xcassets/defense.imageset/defense.png   | Bin 0 -> 892 bytes
+ Don't Die/Base.lproj/Main.storyboard               |  11 +-
+ Don't Die/GameScene.h                              |  27 ++++
+ Don't Die/GameScene.m                              | 158 ++++++++++++++++++++-
+ Don't Die/GameViewController.h                     |   1 +
+ Don't Die/Zombie.h                                 |   2 +-
+ Don't Die/Zombie.m                                 |   4 +-
+ README.md                                          |  11 ++
+ 25 files changed, 351 insertions(+), 12 deletions(-)
+
+commit 43dc8114366970c4cc6a148c7f61cf4937b0e322
+Author: Nick Abate <abaten15@nicks-mbp-4.home>
+Date:   Wed Feb 27 20:13:25 2019 -0500
+
+    Collision and damage handled
+
+ Don't Die.xcodeproj/project.pbxproj                |   8 +-
+ .../Assets.xcassets/Zombie.imageset/Contents.json  |  21 ++++++
+ .../Assets.xcassets/Zombie.imageset/Zombie.png     | Bin 0 -> 943 bytes
+ Don't Die/GameScene.h                              |   9 +++
+ Don't Die/{GameState.m => GameScene.m}             |  84 ++++++++++++++++++---
+ Don't Die/Zombie.h                                 |   7 +-
+ Don't Die/Zombie.m                                 |  18 ++++-
+ 7 files changed, 130 insertions(+), 17 deletions(-)
+
+commit ca994ecac0ac7c1e7e7702a0d2ebb020a9b947cf
+Author: Nick Abate <abaten15@nicks-mbp-4.home>
+Date:   Tue Feb 26 21:19:34 2019 -0500
+
+    collision detection for zombies and bullets
+
+ Don't Die.xcodeproj/project.pbxproj                |  8 ++--
+ .../xcdebugger/Breakpoints_v2.xcbkptlist           |  5 +++
+ Don't Die/CategoryDefinitions.h                    |  5 +++
+ Don't Die/GameScene.h                              |  7 +++-
+ Don't Die/{GameScene.m => GameState.m}             | 49 ++++++++++++++++++++--
+ Don't Die/Zombie.h                                 |  6 ++-
+ Don't Die/Zombie.m                                 |  8 +++-
+ 7 files changed, 76 insertions(+), 12 deletions(-)
+
+commit 16b0775e34b25ec7246acf0292028222052cec68
+Author: Nick Abate <abaten15@Nicks-MacBook-Pro-4.local>
+Date:   Mon Feb 25 15:41:57 2019 -0500
+
+    Added collision detection and fixed zombie orientation bug
+
+ Don't Die.xcodeproj/project.pbxproj |  2 ++
+ Don't Die/CategoryDefinitions.h     | 15 +++++++++++++++
+ Don't Die/GameScene.h               |  5 ++++-
+ Don't Die/GameScene.m               | 15 +++++++++++----
+ Don't Die/GameViewController.m      |  1 +
+ Don't Die/Zombie.h                  |  2 +-
+ Don't Die/Zombie.m                  | 15 ++++++++-------
+ 7 files changed, 42 insertions(+), 13 deletions(-)
+
+commit 1496b236102422ae2fdbc49c60a96acdde2a7bf9
+Author: Nick Abate <abaten15@nicks-mbp-4.home>
+Date:   Sat Feb 23 22:24:23 2019 -0500
+
+    spawns zombies periodically
+
+ Don't Die/GameScene.m | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
+
+commit f8b7e25d7454c2d5f99e236c92e116e21ce70616
+Author: Nick Abate <abaten15@Nicks-MacBook-Pro-4.local>
+Date:   Thu Feb 21 18:11:55 2019 -0500
+
+    added shooting cooldown and zombie spawning capailities
+
+ Don't Die.xcodeproj/project.pbxproj                |   6 +++
+ .../Background Dont Die.png                        | Bin 0 -> 53555 bytes
+ .../Background Dont Die.imageset/Contents.json     |  21 ++++++++
+ Don't Die/GameScene.h                              |   3 ++
+ Don't Die/GameScene.m                              |  30 ++++++++++-
+ Don't Die/Zombie.h                                 |  27 ++++++++++
+ Don't Die/Zombie.m                                 |  60 +++++++++++++++++++++
+ 7 files changed, 145 insertions(+), 2 deletions(-)
+
+commit 8e4bc7edca36f229280fbe5f15b66716e8f8fe2a
+Author: Nick Abate <abaten15@nicks-mbp-4.home>
+Date:   Wed Feb 20 00:53:02 2019 -0500
+
+    added player rotation and shooting
+
+ .../Assets.xcassets/Bullet.imageset/Contents.json  |  21 +++++++
+ .../Assets.xcassets/Bullet.imageset/Player1.png    | Bin 0 -> 2333 bytes
+ Don't Die/GameScene.h                              |  14 ++++-
+ Don't Die/GameScene.m                              |  64 +++++++++++++++++++--
+ 4 files changed, 91 insertions(+), 8 deletions(-)
+
+commit cfd919c6a343d3f98fba6207eccccd378d741309
+Author: Nick Abate <abaten15@Nicks-MacBook-Pro-4.local>
+Date:   Tue Feb 19 18:33:38 2019 -0500
+
+    added player rotation on touch
+
+ Don't Die/GameScene.h |  3 +++
+ Don't Die/GameScene.m | 20 ++++++++++++++++++--
+ 2 files changed, 21 insertions(+), 2 deletions(-)
+
+commit 326061f9b7e295edcad4b9f09dfc35b2421f5906
+Author: Nick Abate <abaten15@nicks-mbp-4.home>
+Date:   Mon Feb 18 14:40:48 2019 -0500
+
+    Node creation and minor touch handling.
+
+ .../AppIcon.appiconset/Contents.json               |   5 ++
+ .../BillyBaller_Forward.png                        | Bin 0 -> 460 bytes
+ .../BillyBaller_Forward.imageset/Contents.json     |  21 ++++++++
+ Don't Die/Assets.xcassets/Contents.json            |   6 +++
+ Don't Die/GameScene.h                              |   2 +
+ Don't Die/GameScene.m                              |  59 +++++++--------------
+ Don't Die/GameScene.sks                            | Bin 4694 -> 5436 bytes
+ 7 files changed, 53 insertions(+), 40 deletions(-)
+
+commit 1b6b1950f38b15ea6dfc8a5d19016c8a9d04032e
+Author: Nicholas Abate <abaten15@Nicks-MacBook-Pro-4.local>
+Date:   Thu Feb 14 18:27:02 2019 -0500
+
+    Initial Commit
+
+ Don't Die.xcodeproj/project.pbxproj                | 571 +++++++++++++++++++++
+ .../project.xcworkspace/contents.xcworkspacedata   |   7 +
+ .../xcschemes/xcschememanagement.plist             |  14 +
+ Don't Die/Actions.sks                              | Bin 0 -> 1892 bytes
+ Don't Die/AppDelegate.h                            |  17 +
+ Don't Die/AppDelegate.m                            |  51 ++
+ .../AppIcon.appiconset/Contents.json               |  93 ++++
+ Don't Die/Base.lproj/LaunchScreen.storyboard       |  25 +
+ Don't Die/Base.lproj/Main.storyboard               |  24 +
+ Don't Die/GameScene.h                              |  17 +
+ Don't Die/GameScene.m                              | 101 ++++
+ Don't Die/GameScene.sks                            | Bin 0 -> 4694 bytes
+ Don't Die/GameViewController.h                     |  15 +
+ Don't Die/GameViewController.m                     |  61 +++
+ Don't Die/Info.plist                               |  47 ++
+ Don't Die/main.m                                   |  16 +
+ Don't DieTests/Don_t_DieTests.m                    |  39 ++
+ Don't DieTests/Info.plist                          |  22 +
+ Don't DieUITests/Don_t_DieUITests.m                |  40 ++
+ Don't DieUITests/Info.plist                        |  22 +
+ 20 files changed, 1182 insertions(+)

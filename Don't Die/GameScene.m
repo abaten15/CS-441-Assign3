@@ -30,6 +30,10 @@
 	// Setting up background
 	SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Background Dont Die"];
 	
+	SKNode *HUDNode = [SKNode node];
+	HUDNode.zPosition = 1000;
+	[self addChild:HUDNode];
+	
 	CGRect screenRect = [[UIScreen mainScreen] bounds];
 	[background setSize:(CGSizeMake(1000, 1000))];
 	[background setPosition:CGPointMake(0, 0)];
@@ -60,8 +64,8 @@
     _lastUpdateTime = 0;
 	
     _currentZombieSpawnDebuff = 0;
-    _zombieSpawnCooldown = 1.0;
-    _zombieSpeed = 6;
+    _zombieSpawnCooldown = 2.0;
+    _zombieSpeed = 7.5;
 	
 	_maxHealth = 100;
     _currentHealth = _maxHealth;
@@ -77,7 +81,7 @@
 	[_upgradeDefensesButton setPosition:CGPointMake(0, -590)];
 	[_upgradeDefensesButton setSize:CGSizeMake(200, 100)];
 	[self addChild:_upgradeDefensesButton];
-	_upgradeStealthButton = [SKSpriteNode spriteNodeWithImageNamed:@"UpgradeStealth-1"];
+	_upgradeStealthButton = [SKSpriteNode spriteNodeWithImageNamed:@"UpgradeStealth"];
 	[_upgradeStealthButton setPosition:CGPointMake(250, -590)];
 	[_upgradeStealthButton setSize:CGSizeMake(200, 100)];
 	[self addChild:_upgradeStealthButton];
@@ -89,19 +93,22 @@
 	
 	// UpgradeCost Labels
 	_upgradeGunLabel = [SKLabelNode labelNodeWithText:@"cost: 3"];
-	[_upgradeGunLabel setPosition:CGPointMake(0,0)];
-	[_upgradeGunLabel setColor:[UIColor blackColor]];
-	[_upgradeGunLabel setFontSize:50];
+	[_upgradeGunLabel setPosition:CGPointMake(0,-20)];
+	[_upgradeGunLabel setFontColor:[UIColor blackColor]];
+	[_upgradeGunLabel setFontSize:18];
+	[_upgradeGunLabel setFontName:@"AvenirNext-Bold"];
 	[_upgradeGunButton addChild:_upgradeGunLabel];
 	_upgradeDefensesLabel = [SKLabelNode labelNodeWithText:@"cost: 3"];
-	[_upgradeDefensesLabel setPosition:CGPointMake(0, 0)];
-	[_upgradeDefensesLabel setFontSize:50];
-	[_upgradeDefensesLabel setColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1]];
+	[_upgradeDefensesLabel setPosition:CGPointMake(0, -20)];
+	[_upgradeDefensesLabel setFontSize:18];
+	[_upgradeDefensesLabel setFontName:@"AvenirNext-Bold"];
+	[_upgradeDefensesLabel setFontColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1]];
 	[_upgradeDefensesButton addChild:_upgradeDefensesLabel];
 	_upgradeStealthLabel = [SKLabelNode labelNodeWithText:@"cost: 3"];
-	[_upgradeStealthLabel setPosition:CGPointMake(0,0)];
-	[_upgradeStealthLabel setFontSize:50];
-	[_upgradeStealthLabel setColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1]];
+	[_upgradeStealthLabel setPosition:CGPointMake(0,-20)];
+	[_upgradeStealthLabel setFontSize:18];
+	[_upgradeStealthLabel setFontName:@"AvenirNext-Bold"];
+	[_upgradeStealthLabel setFontColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1]];
 	[_upgradeStealthButton addChild:_upgradeStealthLabel];
 	
 	// Level
@@ -396,7 +403,7 @@
 - (void) upgradeGun {
 	if (_upgradeGunCost <= _cash) {
 		_cash -= _upgradeGunCost;
-		_upgradeGunCost += 2;
+		_upgradeGunCost += 1;
 		_cooldownDuration -= 0.2 * _cooldownDuration;
 	}
 	NSString *amount = [NSString stringWithFormat:@"%d", (int)_upgradeGunCost];
@@ -408,32 +415,39 @@
 - (void) upgradeDefenses {
 	if (_upgradeDefensesCost <= _cash) {
 		_cash -= _upgradeDefensesCost;
-		_upgradeDefensesCost += 2;
+		_upgradeDefensesCost += 1;
 		_zombieSpeed += 0.15 * _zombieSpeed;
+	
+		int randomx = arc4random_uniform(800) - 400;
+		int randomy = arc4random_uniform(800) - 400;
+		SKSpriteNode * d1 = [SKSpriteNode spriteNodeWithImageNamed:@"defense"];
+		[d1 setPosition:CGPointMake(randomx, randomy)];
+		[d1 setSize:CGSizeMake(20, 20)];
+		[self addChild:d1];
+		int randomx2 = arc4random_uniform(800) - 400;
+		int randomy2 = arc4random_uniform(800) - 400;
+		SKSpriteNode * d2 = [SKSpriteNode spriteNodeWithImageNamed:@"defense"];
+		[d2 setPosition:CGPointMake(randomx2, randomy2)];
+		[d2 setSize:CGSizeMake(20, 20)];
+		[self addChild:d2];
+		int randomx3 = arc4random_uniform(800) - 400;
+		int randomy3 = arc4random_uniform(800) - 400;
+		SKSpriteNode * d3 = [SKSpriteNode spriteNodeWithImageNamed:@"defense"];
+		[d3 setPosition:CGPointMake(randomx3, randomy3)];
+		[d3 setSize:CGSizeMake(20, 20)];
+		[self addChild:d3];
+	
 	}
 	NSString *amount = [NSString stringWithFormat:@"%d", (int)_upgradeDefensesCost];
 	NSArray *cashTextArr = [[NSArray alloc] initWithObjects:@"cost: ", amount, nil];
 	NSString *cashText = [cashTextArr componentsJoinedByString:@""];
 	[_upgradeDefensesLabel setText:cashText];
-	
-	int randomx = arc4random_uniform(800) - 400;
-	int randomy = arc4random_uniform(800) - 400;
-	SKSpriteNode * d1 = [SKSpriteNode spriteNodeWithImageNamed:@"defense"];
-	[d1 setPosition:CGPointMake(randomx, randomy)];
-	[d1 setSize:CGSizeMake(20, 20)];
-	[self addChild:d1];
-	int randomx2 = arc4random_uniform(800) - 400;
-	int randomy2 = arc4random_uniform(800) - 400;
-	SKSpriteNode * d2 = [SKSpriteNode spriteNodeWithImageNamed:@"defense"];
-	[d2 setPosition:CGPointMake(randomx2, randomy2)];
-	[d2 setSize:CGSizeMake(20, 20)];
-	[self addChild:d2];
 }
 
 - (void) upgradeStealth {
-	if (_upgradeStealthButton <= _cash) {
+	if (_upgradeStealthCost <= _cash) {
 		_cash -= _upgradeStealthCost;
-		_upgradeStealthCost += 2;
+		_upgradeStealthCost += 1;
 		_zombieSpawnCooldown += .1 ;
 	}
 	NSString *amount = [NSString stringWithFormat:@"%d", (int)_upgradeStealthCost];
